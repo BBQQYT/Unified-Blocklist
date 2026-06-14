@@ -3,17 +3,24 @@ import requests
 
 # Ссылки переведены на прямые репозитории + исправлен OISD
 URLS = [
+    # 1. Базовый hosts-лист
     "https://raw.githubusercontent.com/StevenBlack/hosts/master/hosts",
-    "https://raw.githubusercontent.com/hagezi/dns-blocklists/main/domains/ultimate.txt",
-    "https://raw.githubusercontent.com/hagezi/dns-blocklists/main/hosts/dyndns.txt",
-    "https://big.oisd.nl", 
-    "https://adguardteam.github.io/HostlistsRegistry/assets/filter_2.txt", 
-    "https://adguardteam.github.io/AdGuardSDNSFilter/Filters/filter.txt",   
-    "https://raw.githubusercontent.com/x-o-r-r-o/Pi-Hole-Block-Lists/master/mobile-ads.txt",
     
-    # Исправленные чистые DNS-версии для Рунета от AdGuard
-    "https://raw.githubusercontent.com/AdguardTeam/AdguardFilters/master/CyrillicFilters/RussianFilter/sections/adservers.txt",
-    "https://raw.githubusercontent.com/AdguardTeam/AdguardFilters/master/CyrillicFilters/RussianFilter/sections/spyware.txt"
+    # 2. Ультимативный доменный лист HaGeZi
+    "https://raw.githubusercontent.com/hagezi/dns-blocklists/main/domains/ultimate.txt",
+    
+    # 3. Исправленный трекер динамических DNS от HaGeZi
+    "https://raw.githubusercontent.com/hagezi/dns-blocklists/main/adblock/dyndns.txt",
+    
+    # 4. Огромный OISD Big (работает отлично)
+    "https://big.oisd.nl", 
+    
+    # 5. Сводные DNS-фильтры AdGuard (уже включают в себя защиту СНГ-пространства)
+    "https://adguardteam.github.io/HostlistsRegistry/assets/filter_2.txt", # Tracking Protection
+    "https://adguardteam.github.io/AdGuardSDNSFilter/Filters/filter.txt",   # Полный DNS-фильтр (с Рунетом)
+    
+    # 6. Мобильная реклама
+    "https://raw.githubusercontent.com/x-o-r-r-o/Pi-Hole-Block-Lists/master/mobile-ads.txt"
 ]
 
 def extract_domains(text):
