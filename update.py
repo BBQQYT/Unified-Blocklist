@@ -3,11 +3,25 @@ import requests
 
 # Список ваших источников
 URLS = [
+    # 1. Эталонный базовый hosts
     "https://raw.githubusercontent.com/StevenBlack/hosts/master/hosts",
-    "https://adguardteam.github.io/AdGuardSDNSFilter/Filters/filter.txt",
+    
+    # 2. Главный калибр: Чистые доменные версии HaGeZi (избавляет от ошибок парсинга)
+    "https://cdn.jsdelivr.net/gh/hagezi/dns-blocklists@latest/domains/ultimate.txt",
+    "https://cdn.jsdelivr.net/gh/hagezi/dns-blocklists@latest/domains/dyndns.txt",
+    
+    # 3. Закрываем дыру с куки-баннерами (Consent) на 100%
+    "https://cdn.jsdelivr.net/gh/hagezi/dns-blocklists@latest/domains/anti-cookie.txt",
+    
+    # 4. Мощнейший агрегатор OISD Big (чистый доменный формат) — добьет остатки рекламы и метрик
+    "https://big.oisd.nl/domaintext",
+    
+    # 5. Защита от трекинга и телеметрии от команды AdGuard
+    "https://adguardteam.github.io/HostlistsRegistry/assets/filter_2.txt", # Tracking Protection
+    "https://adguardteam.github.io/AdGuardSDNSFilter/Filters/filter.txt",   # Базовый DNS
+    
+    # 6. Мобильная реклама и EasyList
     "https://raw.githubusercontent.com/x-o-r-r-o/Pi-Hole-Block-Lists/master/mobile-ads.txt",
-    "https://cdn.jsdelivr.net/gh/hagezi/dns-blocklists@latest/adblock/ultimate.txt",
-    "https://cdn.jsdelivr.net/gh/hagezi/dns-blocklists@latest/adblock/dyndns.txt",
     "https://easylist-downloads.adblockplus.org/advblock.txt"
 ]
 
