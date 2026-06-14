@@ -28,35 +28,41 @@ URLS = [
 def extract_domains(text):
     domains = set()
     
-    # Регулярки для разных форматов
+    # Более гибкие регулярные выражения
     hosts_re = re.compile(r'^(?:0\.0\.0\.0|127\.0\.0\.1)\s+([a-zA-Z0-9._-]+)')
-    adblock_re = re.compile(r'^\|\|([a-zA-Z0-9._-]+)\^')
+    adblock_re = re.compile(r'^\|\|([a-zA-Z0-9._-]+)(?:\^|$)')
     domain_re = re.compile(r'^[a-zA-Z0-9._-]+\.[a-zA-Z0-9._-]+$')
 
     for line in text.splitlines():
         line = line.strip()
-        # Пропускаем комментарии и пустые строки
-        if not line or line.startswith(('#', '!', '[', '::1', 'localhost')):
-            continue
         
-        # 1. Проверяем формат hosts (0.0.0.0 domain.com)
+        # Строгие исключения: пропускаем комментарии, правила исключений (@@) и косметику (##)
+        if not line or line.startswith(('#', '!', '[', '::1', 'localhost', '@@', '#', '[', '/')):
+            continue
+            
+        # Убираем Adblock-модификаторы в конце строки, если они есть (все что после $)
+        if '$' in line and not line.startswith('||'):
+            line = line.split('$')[0].strip()
+
+        # 1. Формат hosts (0.0.0.0 domain.com)
         match = hosts_re.match(line)
         if match:
             domains.add(match.group(1).lower())
             continue
             
-        # 2. Проверяем формат Adblock (||domain.com^)
+        # 2. Формат Adblock (||domain.com^...)
         match = adblock_re.match(line)
         if match:
-            domains.add(match.group(1).lower())
+            # Очищаем от возможных остатков модификаторов, если регулярка зацепила лишнее
+            domain = match.group(1).split('^')[0].split('$')[0].lower()
+            domains.add(domain)
             continue
         
-        # 3. Если строка — просто чистый домен
+        # 3. Чистый домен (встречается в OISD и доменах HaGeZi)
         if domain_re.match(line):
             domains.add(line.lower())
             
     return domains
-
 def main():
     unique_domains = set()
     
