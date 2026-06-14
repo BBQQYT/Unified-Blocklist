@@ -3,15 +3,28 @@ import requests
 
 # Ссылки переведены на прямые репозитории + исправлен OISD
 URLS = [
+    # 1. Эталонный базовый hosts
     "https://raw.githubusercontent.com/StevenBlack/hosts/master/hosts",
+    
+    # 2. Главный калибр: Чистый доменный лист HaGeZi Ultimate (уже включает в себя DynDNS)
     "https://raw.githubusercontent.com/hagezi/dns-blocklists/main/domains/ultimate.txt",
-    "https://raw.githubusercontent.com/hagezi/dns-blocklists/main/domains/dyndns.txt",
-    "https://raw.githubusercontent.com/hagezi/dns-blocklists/main/domains/anti-cookie.txt",
-    "https://big.oisd.nl", # Прямой доменный лист OISD Big
-    "https://adguardteam.github.io/HostlistsRegistry/assets/filter_2.txt",
-    "https://adguardteam.github.io/AdGuardSDNSFilter/Filters/filter.txt",
+    
+    # 3. Тот самый DynDNS (исправленный путь, если нужен отдельно)
+    "https://raw.githubusercontent.com/hagezi/dns-blocklists/main/hosts/dyndns.txt",
+    
+    # 4. Агрегатор OISD Big (чистый доменный формат) — работает отлично
+    "https://big.oisd.nl", 
+    
+    # 5. Списки от команды AdGuard
+    "https://adguardteam.github.io/HostlistsRegistry/assets/filter_2.txt", # Защита от трекинга
+    "https://adguardteam.github.io/AdGuardSDNSFilter/Filters/filter.txt",   # Базовый DNS-фильтр
+    
+    # 6. Мобильная реклама
     "https://raw.githubusercontent.com/x-o-r-r-o/Pi-Hole-Block-Lists/master/mobile-ads.txt",
-    "https://easylist-downloads.adblockplus.org/advblock.txt"
+    
+    # 7. EasyList & EasyPrivacy (Hosts-версии, которые не ломают парсинг)
+    "https://easylist-downloads.adblockplus.org/advblock.txt",
+    "https://v.firebog.net/hosts/Easyprivacy.txt" # Чистый hosts-формат EasyPrivacy против аналитики
 ]
 
 def extract_domains(text):
